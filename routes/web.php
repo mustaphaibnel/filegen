@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/commands', function () {
+    return view('commands');
+})->name('commands');
+
+Route::post('/commands', 'PostController@store')->name('commands');
+
+Route::get('posts','PostController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

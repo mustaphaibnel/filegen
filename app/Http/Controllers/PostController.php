@@ -4,21 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Post;
+use Artisan;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->get();
-
-        return response()->json($posts);
+        
+        return 'ok';
     }
 
-    public function store(PostRequest $request)
+    public function store(Request $request)
     {
-        $post = Post::create($request->all());
-
-        return response()->json($post, 201);
+       
+        Artisan::call("crud:generator", ['name' =>$request->Name]);
+        return $request->Name;
     }
 
     public function show($id)
