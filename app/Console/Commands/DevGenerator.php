@@ -11,7 +11,7 @@ class DevGenerator extends Command
      *
      * @var string
      */
-    protected $signature = 'dev:generator {model}';
+    protected $signature = 'gencmd:generator {model}';
 
     /**
      * The console command description.
@@ -51,6 +51,10 @@ class DevGenerator extends Command
             {
                 $VersionOfApi = $this->ask('What is the version of You Api');
                 $this->info("your Api Version Is: {$VersionOfApi}!");
+            }
+            else
+            {
+                $VersionOfApi='Default';
             }
         }
         $spaceOfWork = $this->ask('What is your space Work Admin /Client /Guest....?');
