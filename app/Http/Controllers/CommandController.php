@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Artisan;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class CommandController extends Controller
 {
     public function store(Request $request)
     {

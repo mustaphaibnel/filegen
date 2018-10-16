@@ -19,9 +19,9 @@ Route::get('/commands', function () {
     return view('commands');
 })->name('commands');
 
-Route::post('/commands', 'PostController@store')->name('commands');
+Route::post('/commands', 'CommandController@store')->name('commands');
 
-Route::get('posts','PostController@index');
+Route::get('posts','CommandController@index');
 
 Auth::routes();
 

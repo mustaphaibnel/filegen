@@ -41,6 +41,7 @@ class CrudGenerator extends Command
         $name = $this->argument('name');
 
         $this->controller($name);
+        $this->response($name);
         $this->model($name);
         $this->request($name);
         //File::append(base_path('routes/api.php'), 'Route::resource(\'' . str_plural(strtolower($name)) . "', '{$name}Controller');");
@@ -76,6 +77,31 @@ class CrudGenerator extends Command
         );
 
         file_put_contents(app_path("/Http/Controllers/{$name}Controller.php"), $controllerTemplate);
+    }
+    protected function response($name)
+    {
+        $steef='class steef main(){
+                stdaazdo;
+                public function rida (){
+                return this;
+                }
+                }
+                ';
+        $ResponseTemplate = str_replace(
+            [
+                '{{a}}',
+                '{{b}}',
+                '{{c}}'
+            ],
+            [
+                $steef,
+                'reda',
+                'app'
+            ],
+            $this->getStub('Response')
+        );
+
+        file_put_contents(app_path("/Http/Responses/{$name}Response.php"), $ResponseTemplate);
     }
     protected function request($name)
     {
