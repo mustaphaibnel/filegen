@@ -17,8 +17,9 @@ class CreateCommandsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('project_type');
-            $table->string('version_api');
-            $table->string('space_work');
+            $table->string('version_api')->nullable();
+            $table->string('space_work')->nullable();
+            $table->boolean('published')->default(0);
             $table->timestamps();
         });
     }
