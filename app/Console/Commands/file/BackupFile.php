@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Console\Commands;
-
-use Illuminate\Console\Command;
+namespace App\Console\Commands\file;
 use App\Command as ModelCommand;
-class DevDelete extends Command
+use Illuminate\Console\Command;
+
+class BackupFile extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'gencmd:delete {--id=}';
+    protected $signature = 'genfile:backup {id}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'delete a cmd';
+    protected $description = 'Command description';
 
     /**
      * Create a new command instance.
@@ -37,14 +37,13 @@ class DevDelete extends Command
      */
     public function handle()
     {
-        $id=$this->option('id');
-        if($id){
-            ModelCommand::destroy($id);
-        }
-        else{
-            ModelCommand::destroy('1');
-
-        }
-
+        $id=$this->argument('id');
+        $this->BackedFile($id);
+    }
+    public function BackedFile($id)
+    {
+        $command=ModelCommand::find($id);
+        $command->backed_up=1;
+        $command->update();
     }
 }

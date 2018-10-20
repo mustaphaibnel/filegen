@@ -20,6 +20,8 @@ class CreateCommandsTable extends Migration
             $table->string('version_api')->nullable();
             $table->string('space_work')->nullable();
             $table->boolean('published')->default(0);
+            $table->boolean('backed_up')->default(0);
+
             $table->timestamps();
         });
     }

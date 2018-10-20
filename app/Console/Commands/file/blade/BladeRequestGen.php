@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\file\blade;
 
 use Illuminate\Console\Command;
 
-class DevBackup extends Command
+class BladeRequestGen extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'gencmd:backup {--id=}';
+    protected $signature = 'command:name';
 
     /**
      * The console command description.
