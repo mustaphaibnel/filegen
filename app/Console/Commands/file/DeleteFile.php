@@ -38,12 +38,49 @@ class DeleteFile extends Command
     public function handle()
     {
         $id=$this->argument('id');
-        $this->DisableFile($id);
+        $cmdfile=$this->CmdFile($id);
+
+        if($cmdfile->project_type=='Api'){
+            $pathcontroller=app_path("/Http/Controllers/{$cmdfile->project_type}/{$cmdfile->version_api}/{$cmdfile->name}.php");
+            $pathcollection=app_path("/Http/Resources/{$cmdfile->project_type}/{$cmdfile->version_api}/{$cmdfile->name}.php");
+            $pathresource=app_path("/Http/Resources/{$cmdfile->project_type}/{$cmdfile->version_api}/{$cmdfile->name}.php");
+            $pathrequest=app_path("/Http/Requests/{$cmdfile->project_type}/{$cmdfile->version_api}/{$cmdfile->name}.php");
+
+            $files=[
+                $pathcontroller,
+                $pathcollection,
+                $pathresource,
+                $pathrequest
+            ];
+            $this->Delete($files);
+
+        }
+        elseif($cmdfile->project_type=='Blade'){
+            $files=[];
+            $this->Delete($files);
+        }
+        elseif ($cmdfile->project_type=='Both'){
+            $files=[];
+            $this->Delete($files);
+        }
+        $this->info($this->Delete($cmdfile));
+        //$this->DisableFile($id);
     }
     public function DisableFile($id)
     {
         $command=ModelCommand::find($id);
         $command->published=0;
         $command->update();
+    }
+    public function CmdFile($id)
+    {
+        return ModelCommand::find($id);
+    }
+    public function Delete($files){
+        foreach ($files as $file) {
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
     }
 }

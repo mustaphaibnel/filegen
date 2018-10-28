@@ -40,7 +40,7 @@ class ApiControllerGen extends Command
     {
         $id=$this->argument('id');
         $cmdfile=$this->CmdFile($id);
-        $this->controller($cmdfile->name);
+        $this->controller($cmdfile);
     }
     public function CmdFile($id)
     {
@@ -50,14 +50,18 @@ class ApiControllerGen extends Command
     {
         return file_get_contents(resource_path("stubs/$type.stub"));
     }
-    protected function controller($name)
+    protected function controller($cmdfile)
     {
         $modelTemplate = str_replace(
             ['{{modelName}}'],
-            [$name],
+            [$cmdfile->name],
             $this->getStub('Controller')
         );
+        $path=app_path("/Http/Controllers/{$cmdfile->project_type}/{$cmdfile->version_api}");
+        if(!file_exists($path)){
+            mkdir($path, 0777, true);
+        }
 
-        file_put_contents(app_path("/Http/Controllers/{$name}.php"), $modelTemplate);
+        file_put_contents($path."/{$cmdfile->name}.php", $modelTemplate);
     }
 }
